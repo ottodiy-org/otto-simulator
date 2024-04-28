@@ -155,12 +155,21 @@ export const Demo = () => {
 
       let boneIndex = 0;
 
-      const render = () => {
+      let lastRenderTimestep = 0;
+
+      const render = (timestep) => {
+        if (lastRenderTimestep === 0) {
+          lastRenderTimestep = timestep;
+        }
+        while (timestep - lastRenderTimestep > 1000.0 / 60.0) {
+          boneIndex = (boneIndex + 1) % Math.floor(resources.frames.length / 35);
+          lastRenderTimestep += 1000.0 / 60.0;
+        }
+
         const { clientWidth, clientHeight } = ref.current;
         const aspect = clientWidth / clientHeight;
 
         const bones = resources.frames.subarray(boneIndex * 35, boneIndex * 35 + 35);
-        boneIndex = (boneIndex + 1) % Math.floor(resources.frames.length / 35);
 
         gl.viewport(0, 0, resolution, resolution);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
@@ -172,25 +181,25 @@ export const Demo = () => {
         gl.uniform1i(flipUniform, 1);
 
         gl.enable(gl.DEPTH_TEST);
-        renderPart(0, 774, bones.subarray(0, 7));
-        renderPart(774, 180, bones.subarray(7, 14));
-        renderPart(954, 336, bones.subarray(14, 21));
-        renderPart(1290, 180, bones.subarray(21, 28));
-        renderPart(1470, 336, bones.subarray(28, 35));
+        renderPart(0, 1692, bones.subarray(0, 7));
+        renderPart(1692, 180, bones.subarray(7, 14));
+        renderPart(1872, 336, bones.subarray(14, 21));
+        renderPart(2208, 180, bones.subarray(21, 28));
+        renderPart(2388, 336, bones.subarray(28, 35));
         gl.disable(gl.DEPTH_TEST);
 
         gl.uniform1i(flipUniform, 0);
 
         gl.enable(gl.BLEND);
-        renderPart(1806, 1248, new Float32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]));
+        renderPart(2724, 1248, new Float32Array([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0]));
         gl.disable(gl.BLEND);
 
         gl.enable(gl.DEPTH_TEST);
-        renderPart(0, 774, bones.subarray(0, 7));
-        renderPart(774, 180, bones.subarray(7, 14));
-        renderPart(954, 336, bones.subarray(14, 21));
-        renderPart(1290, 180, bones.subarray(21, 28));
-        renderPart(1470, 336, bones.subarray(28, 35));
+        renderPart(0, 1692, bones.subarray(0, 7));
+        renderPart(1692, 180, bones.subarray(7, 14));
+        renderPart(1872, 336, bones.subarray(14, 21));
+        renderPart(2208, 180, bones.subarray(21, 28));
+        renderPart(2388, 336, bones.subarray(28, 35));
         gl.enable(gl.DEPTH_TEST);
 
         anim = requestAnimationFrame(render);

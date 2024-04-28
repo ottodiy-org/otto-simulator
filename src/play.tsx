@@ -41,10 +41,18 @@ export const Play = () => {
       uninstallEventHandlers = setupCanvas(pyodide, canvasRef.current, gl);
 
       pyodide.runPython(pythonCode);
-      const updateCallback = pyodide.globals.get('update');
 
-      const render = () => {
-        updateCallback();
+      let lastRenderTimestep = 0;
+
+      const render = (timestep) => {
+        if (lastRenderTimestep === 0) {
+          lastRenderTimestep = timestep;
+        }
+        if (timestep - lastRenderTimestep > 1000 / 60) {
+          const updateCallback = pyodide.globals.get('update');
+          updateCallback();
+          lastRenderTimestep = timestep;
+        }
         anim = requestAnimationFrame(render);
       };
 

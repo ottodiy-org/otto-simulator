@@ -46,9 +46,17 @@ export const Editor = () => {
       pyodide.runPython(pythonCode);
       pyodideRef.current = pyodide;
 
-      const render = () => {
-        const updateCallback = pyodide.globals.get('update');
-        updateCallback();
+      let lastRenderTimestep = 0;
+
+      const render = (timestep) => {
+        if (lastRenderTimestep === 0) {
+          lastRenderTimestep = timestep;
+        }
+        if (timestep - lastRenderTimestep > 1000 / 60) {
+          const updateCallback = pyodide.globals.get('update');
+          updateCallback();
+          lastRenderTimestep = timestep;
+        }
         anim = requestAnimationFrame(render);
       };
 

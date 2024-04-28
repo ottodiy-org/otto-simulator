@@ -94,12 +94,12 @@ class Renderer:
         self.vertex_buffer = ctx.buffer(open(meshfile, 'rb').read())
         self.bones = memoryview(bytearray(168))
         self.shapes = [
-            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 0, 0, 774),
-            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 1, 774, 180),
-            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 2, 954, 336),
-            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 3, 1290, 180),
-            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 4, 1470, 336),
-            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 5, 1806, 1248),
+            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 0, 0, 1692),
+            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 1, 1692, 180),
+            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 2, 1872, 336),
+            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 3, 2208, 180),
+            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 4, 2388, 336),
+            make_pipeline(self.ctx, framebuffer, self.uniform_buffer, self.vertex_buffer, self.bones, 5, 2724, 1248),
         ]
 
     def render(self, env, eye, target, aspect=None):
